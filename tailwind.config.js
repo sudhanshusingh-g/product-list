@@ -17,6 +17,9 @@ export default {
       },
       fontSize:{
         paragraph:"16px",
+      },
+      fontFamily:{
+        redhat:['Red Hat Display', 'sans-serif'],
       }
     },
   },
