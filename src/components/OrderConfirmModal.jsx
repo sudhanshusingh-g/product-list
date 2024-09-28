@@ -57,7 +57,8 @@ function OrderConfirmModal() {
             className="bg-red w-full rounded-full px-4 py-2 hover:bg-rose-900 text-white"
             onClick={() => {
                 setCart([]);
-                setConfirmOrder(false)}}
+                setConfirmOrder(false)}
+            }
           >
             Start New Order
           </button>
