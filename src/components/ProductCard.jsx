@@ -1,9 +1,12 @@
-import {  useState } from "react";
+import { useContext } from "react";
+import { ProductContext } from "../context/ProductContext";
 
 function ProductCard({ title, price, category, image }) {
-  const [quantity, setQuantity] = useState(1);
+  const { cart, addToCart } = useContext(ProductContext);
 
-  
+  // Find the product in the cart to show its current quantity
+  const productInCart = cart.find((item) => item.name === title);
+  const quantity = productInCart ? productInCart.quantity : 0;
 
   return (
     <div className="flex flex-col gap-4 relative">
@@ -20,17 +23,10 @@ function ProductCard({ title, price, category, image }) {
       </div>
       <div className="relative flex items-center justify-center">
         {quantity > 0 ? (
-          <button
-            className="w-2/3 border border-red absolute -top-8 flex items-center justify-between px-4 py-2 rounded-full
-          gap-2 text-sm  bg-red transition-all duration-300"
-          >
-            <span
+          <div className="w-2/3 border border-red absolute -top-8 flex items-center justify-between px-4 py-2 rounded-full gap-2 text-sm bg-red transition-all duration-300">
+            <button
+              onClick={() => addToCart({ name: title, price, image })}
               className="group hover:bg-white rounded-full border h-4 w-4 flex items-center justify-center"
-              onClick={() => {
-                if (quantity > 1) {
-                  setQuantity(quantity - 1);
-                }
-              }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +34,7 @@ function ProductCard({ title, price, category, image }) {
                 height="2"
                 fill="none"
                 viewBox="0 0 10 2"
-                className="text-white group-hover:text-red" // Change color on hover
+                className="text-white group-hover:text-red"
               >
                 <path
                   className="fill-current"
@@ -46,11 +42,11 @@ function ProductCard({ title, price, category, image }) {
                   d="M0 .375h10v1.25H0V.375Z"
                 />
               </svg>
-            </span>
+            </button>
             <span className="font-semibold text-white">{quantity}</span>
-            <span
+            <button
+              onClick={() => addToCart({ name: title, price, image })}
               className="group hover:bg-white rounded-full border h-4 w-4 flex items-center justify-center"
-              onClick={() => setQuantity(quantity + 1)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +54,7 @@ function ProductCard({ title, price, category, image }) {
                 height="10"
                 fill="none"
                 viewBox="0 0 10 10"
-                className=" text-white group-hover:text-red" // Change color on hover
+                className="text-white group-hover:text-red"
               >
                 <path
                   className="fill-current"
@@ -66,12 +62,12 @@ function ProductCard({ title, price, category, image }) {
                   d="M10 4.375H5.625V0h-1.25v4.375H0v1.25h4.375V10h1.25V5.625H10v-1.25Z"
                 />
               </svg>
-            </span>
-          </button>
+            </button>
+          </div>
         ) : (
           <button
-            className="w-2/3 absolute -top-8 flex items-center justify-center px-4 py-2 rounded-full
-        bg-white gap-2 text-sm border border-rose-500 group hover:text-red hover:border-red transition-all duration-300"
+            className="w-2/3 absolute -top-8 flex items-center justify-center px-4 py-2 rounded-full bg-white gap-2 text-sm border border-rose-500 group hover:text-red hover:border-red transition-all duration-300"
+            onClick={() => addToCart({ name: title, price, image })}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

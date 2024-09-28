@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import ProductCard from "./ProductCard";
+import { ProductContext } from "../context/ProductContext";
 
-function ProductList({products}) {
+function ProductList() {
+  const {products}=useContext(ProductContext);
   return (
     <div className="flex-flex-col space-y-4 md:col-span-3 lg:col-span-2">
       <h1 className=" font-black text-2xl">Desserts</h1>
